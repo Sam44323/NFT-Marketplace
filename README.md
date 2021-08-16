@@ -5,6 +5,9 @@
 ---
 
 <h4 align="center">Tech-stack</h4>
+
+---
+
 **Frontend**
 
 - Typescript
