@@ -1,5 +1,5 @@
-require("dotenv").config("./env");
 require("@nomiclabs/hardhat-waffle");
+require("dotenv").config("./env");
 
 const projectId = process.env.local.NEXT_PUBLIC_PROJECT_ID;
 
