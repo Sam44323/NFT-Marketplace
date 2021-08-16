@@ -15,6 +15,7 @@
 - Next.JS
 - Jest
 - Tailwind
+- Autoprefixer
 - Axios
 - SCSS
 
