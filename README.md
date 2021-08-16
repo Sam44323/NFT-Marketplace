@@ -11,22 +11,25 @@
 **Frontend**
 
 - Typescript
-- Web3.JS
+- Ethers.Js
 - Next.JS
 - Jest
 - Tailwind
+- Axios
 - SCSS
 
 **Backend**
 
 - Javascript
 - Solidity
-- fs-extra
-- dotenv
-- Ganache-cli
-- Infura
-- Mocha
-- Truffle
+- Ethers.Js
+- Hardhat
+- Hardhat-Waffle
+- Hardhat-ethers
+- Chai
+- Ethereum-Waffle
+- Openzeppelin
+- ipfs-http-client
 
 ---
 
