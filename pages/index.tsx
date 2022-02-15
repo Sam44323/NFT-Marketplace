@@ -6,6 +6,10 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Web3Modal from "web3modal";
 
+import { nftAddress, nftMarketplaceAddress } from "../config";
+import NFT from "../artifacts/contracts/NFT.sol/NFT.json";
+import Marketplace from "../artifacts/contracts/Marketplace.sol/Marketplace.json";
+
 export default function Home() {
   const [nfts, setNfts] = useState([]);
   const [loadingState, setLoadingState] = useState("not-loaded");
