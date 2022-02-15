@@ -36,3 +36,9 @@ yarn-error.log*
 .vercel
 
 ..gpg
+node_modules
+.vscode
+
+#Hardhat files
+cache
+artifacts
