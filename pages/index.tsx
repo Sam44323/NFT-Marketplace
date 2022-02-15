@@ -7,6 +7,10 @@ import axios from "axios";
 import Web3Modal from "web3modal";
 
 export default function Home() {
+  const [nfts, setNfts] = useState([]);
+  const [loadingState, setLoadingState] = useState("not-loaded");
+  useEffect(() => {}, []);
+
   return (
     <div className={styles.container}>
       <Head>
