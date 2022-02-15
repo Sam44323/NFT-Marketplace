@@ -3,6 +3,7 @@ import { ethers } from "ethers";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Web3Modal from "web3modal";
+import { useMoralis } from "react-moralis";
 
 import { nftAddress, nftMarketplaceAddress } from "../config";
 import NFT from "../artifacts/contracts/NFT.sol/NFT.json";
@@ -16,34 +17,39 @@ export default function Home() {
   }, []);
 
   const loadNfts = async () => {
-    const provider = new ethers.providers.JsonRpcProvider();
-    const tokenContract = new ethers.Contract(nftAddress, NFT.abi, provider);
-    const marketplaceContract = new ethers.Contract(
-      nftMarketplaceAddress,
-      Marketplace.abi,
-      provider
-    );
+    try {
+      const provider = new ethers.providers.JsonRpcProvider();
+      const tokenContract = new ethers.Contract(nftAddress, NFT.abi, provider);
+      const marketplaceContract = new ethers.Contract(
+        nftMarketplaceAddress,
+        Marketplace.abi,
+        provider
+      );
 
-    const data = await marketplaceContract.fetchMarketItems();
-    const items = await Promise.all(
-      data.map(async (i: any) => {
-        const tokenUri = await tokenContract.tokenURI(i.tokenId);
-        const metaData = await axios.get(tokenUri); // getting the metadata json from the uri
-        const price = ethers.utils.formatUnits(i.price.toString(), "ether");
+      const data = await marketplaceContract.fetchMarketItems();
+      const items = await Promise.all(
+        data.map(async (i: any) => {
+          const tokenUri = await tokenContract.tokenURI(i.tokenId);
+          const metaData = await axios.get(tokenUri); // getting the metadata json from the uri
+          const price = ethers.utils.formatUnits(i.price.toString(), "ether");
 
-        return {
-          price,
-          tokenId: i.tokenId.toNumber(),
-          seller: i.seller,
-          owner: i.owner,
-          image: metaData.data.image,
-          name: metaData.data.name,
-          description: metaData.data.description,
-        };
-      })
-    );
-    setNfts(items as any);
-    setLoadingState("loaded");
+          return {
+            price,
+            tokenId: i.tokenId.toNumber(),
+            seller: i.seller,
+            owner: i.owner,
+            image: metaData.data.image,
+            name: metaData.data.name,
+            description: metaData.data.description,
+          };
+        })
+      );
+      setNfts(items as any);
+      setLoadingState("loaded");
+    } catch (err) {
+      console.log(err);
+      setLoadingState("loaded");
+    }
   };
 
   const buyNft = async (nft: any) => {
