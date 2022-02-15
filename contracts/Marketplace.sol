@@ -102,4 +102,10 @@ contract Marketplace is ReentrancyGuard {
 
         payable(owner).transfer(listingPrice); // sending the listing price to the owner of the contract
     }
+
+    function fetchMarketItems() public view returns (MarketItem[] memory) {
+        uint256 itemCount = _itemIds.current();
+        uint256 unsoldItemCount = _itemIds.current() - _itemSold.current();
+        uint256 currentIndex = 0;
+    }
 }
