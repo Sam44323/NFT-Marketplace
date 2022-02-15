@@ -72,6 +72,8 @@ const CreateItem = () => {
 
     const price = ethers.utils.parseUnits(formInput.price, "ether");
 
+    console.log("Price", price);
+
     /* then list the item for sale on the marketplace */
     contract = new ethers.Contract(
       nftMarketplaceAddress,
