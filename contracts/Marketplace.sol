@@ -75,9 +75,25 @@ contract Marketplace is ReentrancyGuard {
             nftContract,
             tokenId,
             msg.sender,
-            payable(address(0)),
+            address(0),
             price,
             false
         );
+    }
+
+    function createMarketSale(address nftContract, uint256 itemId)
+        public
+        payable
+        nonReentrant
+    {
+        uint256 price = _idToMarketItems[itemId].price;
+        uint256 tokenId = _idToMarketItems[itemId].tokenId;
+
+        require(
+            msg.value == price,
+            "Price must be equal to the price of the item for purchasing this item"
+        );
+
+        _idToMarketItems[itemId].seller.transfer(msg.value); // sending the selling price to the seller
     }
 }
