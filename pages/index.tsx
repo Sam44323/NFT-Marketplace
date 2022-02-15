@@ -13,7 +13,39 @@ import Marketplace from "../artifacts/contracts/Marketplace.sol/Marketplace.json
 export default function Home() {
   const [nfts, setNfts] = useState([]);
   const [loadingState, setLoadingState] = useState("not-loaded");
-  useEffect(() => {}, []);
+  useEffect(() => {
+    loadNfts();
+  }, []);
+
+  const loadNfts = async () => {
+    const provider = new ethers.providers.JsonRpcProvider();
+    const tokenContract = new ethers.Contract(nftAddress, NFT.abi, provider);
+    const marketplaceContract = new ethers.Contract(
+      nftMarketplaceAddress,
+      Marketplace.abi,
+      provider
+    );
+
+    const data = await marketplaceContract.fetchMarketItems();
+    const items = await Promise.all(
+      data.map(async (i: any) => {
+        const tokenUri = await tokenContract.tokenURI(i.tokenId);
+        const metaData = await axios.get(tokenUri); // getting the metadata json from the uri
+        const price = ethers.utils.formatUnits(i.price.toString(), "ether");
+
+        return {
+          price,
+          tokenId: i.tokenId.toNumber(),
+          seller: i.seller,
+          owner: i.owner,
+          image: metaData.data.image,
+          name: metaData.data.name,
+          description: metaData.data.description,
+        };
+      })
+    );
+    setNfts(items as any);
+  };
 
   return (
     <div className={styles.container}>
