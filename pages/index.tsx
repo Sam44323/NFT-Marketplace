@@ -48,6 +48,29 @@ export default function Home() {
     setLoadingState("loaded");
   };
 
+  const buyNft = async (nft: any) => {
+    const web3modal: any = new Web3Modal();
+    const connection = await web3modal.connect();
+    const provider = new ethers.providers.JsonRpcProvider();
+
+    const signer = provider.getSigner(); // getting the signer for signing the transaction
+    const marketplaceContract = new ethers.Contract(
+      nftMarketplaceAddress,
+      Marketplace.abi,
+      signer
+    );
+
+    const price = ethers.utils.parseUnits(nft.price, "ether");
+    const transaction = await marketplaceContract.createMarketSale(
+      nftAddress,
+      nft.tokenId,
+      { value: price }
+    );
+
+    await transaction.wait();
+    loadNfts();
+  };
+
   if (loadingState === "loaded" && !nfts.length)
     return <h1 className="px-20 py-10 text-3xl">No items in marketplace</h1>;
 
