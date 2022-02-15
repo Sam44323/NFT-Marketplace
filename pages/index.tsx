@@ -3,7 +3,6 @@ import { ethers } from "ethers";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Web3Modal from "web3modal";
-import { useMoralis } from "react-moralis";
 
 import { nftAddress, nftMarketplaceAddress } from "../config";
 import NFT from "../artifacts/contracts/NFT.sol/NFT.json";

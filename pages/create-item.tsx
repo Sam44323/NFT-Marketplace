@@ -3,6 +3,7 @@ import { ethers } from "ethers";
 import { create as ipfsHttpClient } from "ipfs-http-client";
 import { useRouter } from "next/router";
 import Web3Modal from "web3modal";
+import Moralis from "moralis";
 
 const client = ipfsHttpClient({
   host: "ipfs.infura.io",
@@ -27,11 +28,14 @@ const CreateItem = () => {
   const onChange = async (e: any) => {
     const file = e.target.files[0];
     try {
-      const added = await client.add(file, {
-        progress: (prog) => console.log(`received: ${prog}`),
-      });
-      const url = `https://ipfs.infura.io/ipfs/${added.path}`;
-      setFileUrl(url);
+      const ipfsFile = new Moralis.File("Name", file);
+      const uri = await ipfsFile.saveIPFS();
+      console.log(uri._url);
+      // const added = await client.add(file, {
+      //   progress: (prog) => console.log(`received: ${prog}`),
+      // });
+      // const url = `https://ipfs.infura.io/ipfs/${added.path}`;
+      setFileUrl(uri._url);
     } catch (error) {
       console.log("Error uploading file: ", error);
     }
@@ -47,10 +51,14 @@ const CreateItem = () => {
       image: fileUrl,
     });
     try {
-      const added = await client.add(data);
-      const url = `https://ipfs.infura.io/ipfs/${added.path}`;
+      const jsonFile = new Moralis.File("file.json", {
+        base64: btoa(JSON.stringify(data)),
+      });
+      const uri = await jsonFile.saveIPFS();
+      // const added = await client.add(data);
+      // const url = `https://ipfs.infura.io/ipfs/${added.path}`;
       /* after file is uploaded to IPFS, pass the URL to save it on Polygon */
-      createSale(url);
+      createSale(uri._url);
     } catch (error) {
       console.log("Error uploading file: ", error);
     }
