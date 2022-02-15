@@ -21,7 +21,7 @@ contract Marketplace is ReentrancyGuard {
         address payable seller;
         address payable owner;
         uint256 price;
-        uint256 sold;
+        bool sold;
     }
 
     constructor() {
