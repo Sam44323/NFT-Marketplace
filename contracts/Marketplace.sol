@@ -14,6 +14,7 @@ contract Marketplace is ReentrancyGuard {
     address payable owner; // setting as payable as the owner will be paid some value as commission for the sale
     uint256 listingPrice = 0.025 ether; // as for polygon so in terms of matic
 
+    // Market-item structure
     struct MarketItem {
         uint256 itemId;
         address nftContract;
@@ -24,6 +25,7 @@ contract Marketplace is ReentrancyGuard {
         bool sold;
     }
 
+    // event when a market items is created
     event MarketItemCreated(
         uint256 indexed itemI,
         address indexed nftContract,
@@ -34,15 +36,28 @@ contract Marketplace is ReentrancyGuard {
         bool sold
     );
 
-    mapping(uint256 => MarketItem) private _idToMarketItems;
+    mapping(uint256 => MarketItem) private _idToMarketItems; // mapping of itemId to market item
 
     constructor() {
         owner = payable(msg.sender);
     }
 
+    /*
+   @dev Gets the listing price for the marketplace and returns it
+   @return the listing price for the marketplace
+   */
+
     function getListingPrice() public view returns (uint256) {
         return listingPrice;
     }
+
+    /*
+   @dev Gets the listing price for the marketplace and returns it
+   @param nftContract the address of the NFT contract
+   @param tokenId the tokenId of the NFT
+   @param price the price of the NFT to be listed for
+   @return event
+   */
 
     function createMarketItem(
         address nftContract,
@@ -81,6 +96,13 @@ contract Marketplace is ReentrancyGuard {
         );
     }
 
+    /*
+   @dev Buying an item from the marketplace
+   @param nftContract the address of the NFT contract
+   @param itemId the item-id of the NFT
+   @return event
+   */
+
     function createMarketSale(address nftContract, uint256 itemId)
         public
         payable
@@ -103,6 +125,11 @@ contract Marketplace is ReentrancyGuard {
         payable(owner).transfer(listingPrice); // sending the listing price to the owner of the contract
     }
 
+    /*
+    @dev gets all the items for sale but not sold
+    @return all the items for sale but not sold
+   */
+
     function fetchMarketItems() public view returns (MarketItem[] memory) {
         uint256 itemCount = _itemIds.current();
         uint256 unsoldItemsCount = _itemIds.current() - _itemSold.current();
@@ -120,6 +147,11 @@ contract Marketplace is ReentrancyGuard {
 
         return items;
     }
+
+    /*
+     @dev gets all the items owned by the user
+     @return all the items owned by the user
+   */
 
     function fetchMyNFTs() public view returns (MarketItem[] memory) {
         uint256 totalItemCount = _itemIds.current();
@@ -144,6 +176,11 @@ contract Marketplace is ReentrancyGuard {
 
         return items;
     }
+
+    /*
+      @dev gets all theh items created by the user
+      @return all the items created by the user
+   */
 
     function fetchCreatedItems() public view returns (MarketItem[] memory) {
         uint256 totalItemCount = _itemIds.current();
