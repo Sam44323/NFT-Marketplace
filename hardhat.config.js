@@ -10,6 +10,7 @@ module.exports = {
     },
     mumbai: {
       url: process.env.MUMBAI_ID,
+      accounts: [process.env.ACCOUNT],
     },
   },
   solidity: "0.8.4",
