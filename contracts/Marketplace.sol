@@ -39,4 +39,8 @@ contract Marketplace is ReentrancyGuard {
     constructor() {
         owner = payable(msg.sender);
     }
+
+    function getListingPrice() public view returns (uint256) {
+        return listingPrice;
+    }
 }
