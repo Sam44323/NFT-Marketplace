@@ -11,7 +11,7 @@ async function main() {
   const nft = await NFT.deploy();
   await nft.deployed();
 
-  console.log("NFT-Contract deployed to:", nft.address);
+  console.log("NFT contract deployed to:", nft.address);
 }
 
 main()
