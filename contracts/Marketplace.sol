@@ -15,14 +15,26 @@ contract Marketplace is ReentrancyGuard {
     uint256 listingPrice = 0.025 ether; // as for polygon so in terms of matic
 
     struct MarketItem {
-        uint256 itemId;
+        uint itemId;
         address nftContract;
         uint256 tokenId;
         address payable seller;
         address payable owner;
         uint256 price;
         bool sold;
+    };
+
+    event MarketItemCreated{
+      uint indexed itemId;
+      address indexed nftContract;
+      uint256 indexed tokenId;
+      address seller;
+      address owner;
+      uint256 price;
+      bool sold;
     }
+
+    mapping(uint256 => MarketItem) private _idToMarketItems;
 
     constructor() {
         owner = payable(msg.sender);
