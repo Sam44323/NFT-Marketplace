@@ -133,7 +133,7 @@ contract Marketplace is ReentrancyGuard {
         }
 
         MarketItem[] memory items = new MarketItem[](itemCount); // creating an array of items owned by the user
-        for (uint256 index = 0; index < itemCount; index++) {
+        for (uint256 index = 0; index < totalItemCount; index++) {
             if (_idToMarketItems[index + 1].owner == msg.sender) {
                 uint256 currentId = _idToMarketItems[index + 1].itemId;
                 MarketItem memory item = _idToMarketItems[currentId];
