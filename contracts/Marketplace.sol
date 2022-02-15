@@ -96,5 +96,10 @@ contract Marketplace is ReentrancyGuard {
 
         _idToMarketItems[itemId].seller.transfer(msg.value); // sending the selling price to the seller
         IERC721(nftContract).transferFrom(address(this), msg.sender, tokenId); // transfer ownership of the item to the buyer
+        _idToMarketItems[itemId].owner = payable(msg.sender);
+        _idToMarketItems[itemId].sold = true;
+        _itemSold.increment();
+
+        payable(owner).transfer(listingPrice); // sending the listing price to the owner of the contract
     }
 }
