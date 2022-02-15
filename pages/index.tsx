@@ -29,7 +29,9 @@ export default function Home() {
       const items = await Promise.all(
         data.map(async (i: any) => {
           const tokenUri = await tokenContract.tokenURI(i.tokenId);
-          const metaData = await axios.get(tokenUri); // getting the metadata json from the uri
+          let metaData: any = await axios.get(tokenUri); // getting the metadata json from the tokenURI
+          metaData = JSON.parse(metaData.data); // parsing the json
+          console.log(metaData);
           const price = ethers.utils.formatUnits(i.price.toString(), "ether");
 
           return {
@@ -37,9 +39,9 @@ export default function Home() {
             tokenId: i.tokenId.toNumber(),
             seller: i.seller,
             owner: i.owner,
-            image: metaData.data.image,
-            name: metaData.data.name,
-            description: metaData.data.description,
+            image: metaData.image,
+            name: metaData.name,
+            description: metaData.description,
           };
         })
       );
@@ -77,6 +79,8 @@ export default function Home() {
   if (loadingState === "loaded" && !nfts.length)
     return <h1 className="px-20 py-10 text-3xl">No items in marketplace</h1>;
 
+  console.log(nfts);
+
   return (
     <>
       <Head>
@@ -88,7 +92,7 @@ export default function Home() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4">
             {nfts.map((nft: any, i) => (
               <div key={i} className="border shadow rounded-xl overflow-hidden">
-                <img src={nft.image} />
+                <img src={nft.image ? nft.image : ""} />
                 <div className="p-4">
                   <p
                     style={{ height: "64px" }}
