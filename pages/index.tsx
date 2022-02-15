@@ -1,6 +1,10 @@
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.scss";
+import { ethers } from "ethers";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import Web3Modal from "web3modal";
 
 export default function Home() {
   return (
