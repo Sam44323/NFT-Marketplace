@@ -182,27 +182,26 @@ contract Marketplace is ReentrancyGuard {
       @return all the items created by the user
    */
 
-    function fetchCreatedItems() public view returns (MarketItem[] memory) {
+    function fetchItemsCreated() public view returns (MarketItem[] memory) {
         uint256 totalItemCount = _itemIds.current();
         uint256 itemCount = 0;
         uint256 currentIndex = 0;
 
-        for (uint256 index = 0; index < totalItemCount; index++) {
-            if (_idToMarketItems[index + 1].seller == msg.sender) {
-                itemCount++;
+        for (uint256 i = 0; i < totalItemCount; i++) {
+            if (_idToMarketItems[i + 1].seller == msg.sender) {
+                itemCount += 1;
             }
         }
 
-        MarketItem[] memory items = new MarketItem[](itemCount); // creating an array of items owned by the user
-        for (uint256 index = 0; index < totalItemCount; index++) {
-            if (_idToMarketItems[index + 1].seller == msg.sender) {
-                uint256 currentId = _idToMarketItems[index + 1].itemId;
-                MarketItem memory item = _idToMarketItems[currentId];
-                items[currentIndex] = item;
-                currentIndex++;
+        MarketItem[] memory items = new MarketItem[](itemCount);
+        for (uint256 i = 0; i < totalItemCount; i++) {
+            if (_idToMarketItems[i + 1].seller == msg.sender) {
+                uint256 currentId = i + 1;
+                MarketItem storage currentItem = _idToMarketItems[currentId];
+                items[currentIndex] = currentItem;
+                currentIndex += 1;
             }
         }
-
         return items;
     }
 }
