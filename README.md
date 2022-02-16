@@ -1,92 +1,95 @@
-# NFT Marketplace App
+# NFT-Marketplace Creator
 
-**A simple NFT marketplace**
+![Solidity](https://img.shields.io/badge/-Solidity-333333?style=for-the-badge&logo=solidity&logoColor=61dbfb)
+![Yarn](https://img.shields.io/badge/-Yarn-333333?style=for-the-badge&logo=yarn&logoColor=61dbfb)
+![Git](https://img.shields.io/badge/-Git-333333?style=for-the-badge&logo=git&logoColor=61dbfb)
+![Ts-node](https://img.shields.io/badge/-Tsnode-333333?style=for-the-badge&logo=ts-node&logoColor=61dbfb)
+![Ethereum](https://img.shields.io/badge/-Ethereum-333333?style=for-the-badge&logo=ethereum&logoColor=61dbfb)
+![Next-JS](https://img.shields.io/badge/-Next.JS-333333?style=for-the-badge&logo=next.js&logoColor=61dbfb)
+![TailwindCSS](https://img.shields.io/badge/-TailwindCSS-333333?style=for-the-badge&logo=tailwindcss&logoColor=61dbfb)
+![Typescript](https://img.shields.io/badge/-Typescript-333333?style=for-the-badge&logo=typescript&logoColor=61dbfb)
 
----
-
-<h4 align="center">Tech-stack</h4>
-
----
-
-**Frontend**
-
-- Typescript
-- Ethers.Js
-- Next.JS
-- Jest
-- Tailwind
-- Autoprefixer
-- Axios
-- SCSS
-
-**Backend**
-
-- Javascript
-- Solidity
-- Ethers.Js
-- Hardhat
-- Hardhat-Waffle
-- Hardhat-ethers
-- Chai
-- Ethereum-Waffle
-- Openzeppelin
-- ipfs-http-client
+**This repo contains the entire nft-marketplace implementation**
 
 ---
 
+# **Tech-stack**
+
+### Prerequisites
+
+- git
+- yarn
+- npx
+
+### **Bridge-Contracts Folder**
+
 ---
 
-**Run the following commands to run the script locally**
+- **Solidity**
+- **Hardhat**
+- **Typescript**
+- **Eslint**
+- **Chai**
+- **Prettier**
+- **Openzeppelin**
+- **Ethers**
+- **Waffle**
+- **Solhint**
 
 ---
 
-### For installing the packages(same for both ethereum folder and frontend folder)
+### **Bridge-Frontend Folder**
 
-```
+---
+
+- **Typescript**
+- **Next-JS**
+- **Axios**
+- **Ethers-JS**
+
+---
+
+# **Scripts**
+
+_Wanna contribute? Cool! Fork the repo and run the following commands for the following folders based on which part you want to contribute for_
+
+### **Installing the dependencies**
+
+```bash
 yarn
 ```
 
 ---
 
-<h1 align="center">For contracts</h1>
+**Compile the contracts**
 
-### For compiling the typescript files
-
-```
-yarn watch
+```bash
+npx hardhat compile
 ```
 
-### For compiling the contract
+**Run the test suite**
 
-```
-yarn compile
-```
-
-### For testing the contract
-
-```
-yarn test
-```
-
-### For deploying the contract
-
-```
-yarn deploy
+```bash
+npx hardhat test
 ```
 
 ---
 
-<h1 align="center">For frontend</h1>
+**Start the dev server**
 
-### For starting the dev server
-
-```
-yarn dev
+```bash
+yarn start
 ```
 
-### For building deployed file
+**Running tests for components**
 
+```bash
+yarn test
 ```
+
+**Create a prod build**
+
+```bash
 yarn build
 ```
 
